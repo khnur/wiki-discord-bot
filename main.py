@@ -33,7 +33,7 @@ def process_event(event: dict[str, str | int | float]):
     if len(wiki) < 2:
         return
 
-    language = wiki[:2].lower()  # e.g., "en"
+    language = wiki[:2].lower()
     # Append the event (keeping only the last MAX_EVENTS events)
     recent_changes[language].append(event)
 
@@ -93,7 +93,6 @@ async def set_lang(ctx: Context, lang_code: str):
         await ctx.send("Please provide a valid two-letter language code (e.g., en, es).")
         return
 
-    # Choose key: if in a guild, use guild id; otherwise (in DM) use user id.
     key: int = ctx.guild.id if ctx.guild else ctx.author.id
     default_languages[key] = lang_code.lower()
     await ctx.send(f"Default language set to `{lang_code.lower()}` for this session.")
@@ -107,11 +106,10 @@ async def recent(ctx: Context, lang_code: str = None):
     Usage: !recent or !recent es
     """
     key: int = ctx.guild.id if ctx.guild else ctx.author.id
-    # Use language provided by the command argument, or fallback to the default for this session.
     language = (lang_code.lower() if lang_code else default_languages.get(key, "en"))
     events = list(recent_changes.get(language, []))
 
-    if not events:
+    if not events or len(events) == 0:
         await ctx.send(f"No recent changes found for language `{language}`.")
         return
 
