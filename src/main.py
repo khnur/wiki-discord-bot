@@ -45,6 +45,7 @@ async def wikipedia_stream():
                 async with session.get(WIKIPEDIA_STREAM_URL) as resp:
                     print("Connected to Wikipedia stream...")
                     async for line_bytes in resp.content:
+                        await asyncio.sleep(0)
                         if lock.locked():
                             continue
                         with lock:
@@ -71,7 +72,7 @@ async def wikipedia_stream():
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
-    await bot.loop.create_task(wikipedia_stream())
+    bot.loop.create_task(wikipedia_stream())
 
 
 @bot.command()
