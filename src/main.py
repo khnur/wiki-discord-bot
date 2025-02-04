@@ -1,5 +1,6 @@
 import asyncio
 import json
+import threading
 from datetime import datetime
 
 import aiohttp
@@ -9,7 +10,6 @@ from discord.ext.commands import Bot, Context
 
 import service
 import util
-import threading
 
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
@@ -71,7 +71,7 @@ async def wikipedia_stream():
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
-    # await bot.loop.create_task(wikipedia_stream())
+    await bot.loop.create_task(wikipedia_stream())
 
 
 @bot.command()
