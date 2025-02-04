@@ -8,6 +8,8 @@ from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import Bot, Context
 
+import util
+
 MAX_EVENTS: int = 100
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
@@ -33,7 +35,7 @@ def process_event(event: dict[str, str | int | float]):
     if len(wiki) < 2:
         return
 
-    language = wiki[:2].lower()
+    language: str = wiki[:2].lower()
     # Append the event (keeping only the last MAX_EVENTS events)
     recent_changes[language].append(event)
 
@@ -41,9 +43,8 @@ def process_event(event: dict[str, str | int | float]):
     timestamp = event.get("timestamp")
     if timestamp:
         try:
-            dt = datetime.utcfromtimestamp(timestamp)
-            date_str = dt.strftime("%Y-%m-%d")
-            key = (language, date_str)
+            dt: str = util.get_date_time(timestamp)
+            key = (language, dt)
             daily_stats[key] += 1
         except Exception as e:
             print("Error processing timestamp:", e)
@@ -119,7 +120,7 @@ async def recent(ctx: Context, lang_code: str = None):
         title = event.get("title", "N/A")
         user = event.get("user", "N/A")
         timestamp = event.get("timestamp")
-        dt_str = datetime.utcfromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S") if timestamp else "N/A"
+        dt_str = util.get_date_time(timestamp) if timestamp else "N/A"
         server_url = event.get("server_url", "")
         url = f"{server_url}/wiki/{title.replace(' ', '_')}" if server_url else "N/A"
 
