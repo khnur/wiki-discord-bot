@@ -3,8 +3,9 @@ from typing import Callable
 
 from confluent_kafka import Consumer
 import json
+import os
 
-KAFKA_BROKER = "localhost:9092"
+KAFKA_BROKER = os.environ.get("KAFKA_BROKER", "localhost:9092")
 TOPIC = "wikipedia"
 
 
