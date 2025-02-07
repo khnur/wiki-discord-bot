@@ -20,6 +20,7 @@ bot: Bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 def process_event(event: dict[str, str | int | float]):
+    print(f"Processing event {event}")
     wiki: str = event.get("wiki", "")
     if len(wiki) < 2:
         return

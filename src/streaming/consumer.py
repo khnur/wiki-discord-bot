@@ -19,7 +19,6 @@ def consume(func: Callable[[dict[str, str | int | float]], None], lock: threadin
 
     while True:
         try:
-            print(lock.locked())
             if lock.locked():
                 continue
             with lock:

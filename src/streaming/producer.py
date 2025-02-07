@@ -1,4 +1,5 @@
 import json
+import time
 
 import requests
 from confluent_kafka import Producer
@@ -35,3 +36,4 @@ def produce():
             producer.flush()
         except json.JSONDecodeError as e:
             print(f'Error: {e}')
+        time.sleep(5)
