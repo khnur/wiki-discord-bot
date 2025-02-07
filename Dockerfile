@@ -3,7 +3,7 @@ LABEL authors="nkozhamuratov"
 
 WORKDIR /opt/app
 
-RUN pip3 install --no-cache-dir discord pymongo pytz
+RUN pip3 install --no-cache-dir discord pymongo pytz pyspark confluent_kafka requests
 
 COPY src/ .
 

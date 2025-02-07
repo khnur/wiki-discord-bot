@@ -1,15 +1,13 @@
-import asyncio
-import json
 import threading
 from datetime import datetime
 
-import aiohttp
 from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import Bot, Context
 
 import service
 import util
+from streaming import producer, consumer
 
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
@@ -38,41 +36,15 @@ def process_event(event: dict[str, str | int | float]):
             print("Error processing timestamp:", e)
 
 
-async def wikipedia_stream():
-    while True:
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(WIKIPEDIA_STREAM_URL) as resp:
-                    print("Connected to Wikipedia stream...")
-                    async for line_bytes in resp.content:
-                        await asyncio.sleep(0)
-                        if lock.locked():
-                            continue
-                        with lock:
-                            try:
-                                line = line_bytes.decode("utf-8").strip()
-                            except Exception as ex:
-                                print(ex)
-                                continue
-                            if not line.startswith("data:"):
-                                continue
-                            data_str = line[len("data:"):].strip()
-                            if not data_str:
-                                continue
-                            try:
-                                event = json.loads(data_str)
-                                process_event(event)
-                            except json.JSONDecodeError:
-                                continue
-        except Exception as e:
-            print("Error in Wikipedia stream:", e)
-            await asyncio.sleep(5)
-
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
-    bot.loop.create_task(wikipedia_stream())
+
+    threading.Thread(target=producer.produce).start()
+    print("Producer is running in another thread...")
+
+    threading.Thread(target=consumer.consume, args=[process_event]).start()
+    print("Consumer is running in another thread...")
 
 
 @bot.command()
