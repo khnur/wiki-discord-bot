@@ -43,7 +43,7 @@ async def on_ready():
     threading.Thread(target=producer.produce).start()
     print("Producer is running in another thread...")
 
-    threading.Thread(target=consumer.consume, args=[process_event]).start()
+    threading.Thread(target=consumer.consume, args=[process_event, lock]).start()
     print("Consumer is running in another thread...")
 
 
