@@ -28,18 +28,6 @@ jobs:
           pip install --upgrade pip
           pip install pytest pymongo pytz
 
-      - name: Wait for MongoDB to be ready
-        run: |
-          for i in {1..20}; do
-            if mongosh --quiet --eval "db.runCommand({ping: 1})"; then
-              echo "MongoDB is ready!"
-              exit 0
-            fi
-            echo "Waiting for MongoDB..."
-            sleep 5
-          done
-          exit 1
-
       - name: Run tests with pytest
         run: |
           source venv/bin/activate
