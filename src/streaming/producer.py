@@ -9,8 +9,6 @@ KAFKA_BROKER = os.environ.get("KAFKA_BROKER", "localhost:9092")
 TOPIC: str = "wikipedia"
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
-producer: Producer = Producer({'bootstrap.servers': KAFKA_BROKER})
-
 
 def delivery_report(err, msg):
     if err:
@@ -20,6 +18,7 @@ def delivery_report(err, msg):
 
 
 def produce():
+    producer: Producer = Producer({'bootstrap.servers': KAFKA_BROKER})
     response = requests.get(WIKIPEDIA_STREAM_URL, stream=True)
     print("Connected to Wikipedia stream...")
     for line in response.iter_lines():

@@ -5,6 +5,7 @@ from pymongo.collection import Collection
 from pymongo.database import Database
 
 mongoClient: MongoClient = MongoClient(
+    'mongodb://abc:pass@mongo:27017?retryWrites=true&w=majority&authSource=admin'
 )
 database: Database = mongoClient['wiki']
 

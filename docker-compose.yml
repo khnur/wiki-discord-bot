@@ -31,8 +31,6 @@ services:
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
-    ports:
-      - "80:8080"
     environment:
       DYNAMIC_CONFIG_ENABLED: true
     depends_on:
@@ -46,3 +44,39 @@ services:
     depends_on:
       - kafka
       - zookeeper
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: abc
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: askndo
+    volumes:
+      - mongo-data:/data/db
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_AUTH_USERNAME: abc
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: pass
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: abc
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+      ME_CONFIG_SITE_BASEURL: /mongo-express
+    depends_on:
+      - mongo
+
+  nginx:
+    image: nurzhankhn/wiki-nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - mongo-express
+      - kafka-ui
+      - bot
+
+volumes:
+  mongo-data:
+    driver: local
