@@ -22,16 +22,15 @@ def consume(func: Callable[[dict[str, str | int | float]], None], lock: threadin
         try:
             if lock.locked():
                 continue
-            with lock:
-                msg = consumer.poll(1.0)
-                if msg is None:
-                    continue
-                if msg.error():
-                    print(f"Consumer error: {msg.error()}")
-                    continue
+            msg = consumer.poll(1.0)
+            if msg is None:
+                continue
+            if msg.error():
+                print(f"Consumer error: {msg.error()}")
+                continue
 
-                data: dict = json.loads(msg.value().decode('utf-8'))
-                func(data)
+            data: dict = json.loads(msg.value().decode('utf-8'))
+            func(data)
         except Exception as e:
             print(f"Exception in Consumer: {e}")
 
