@@ -12,17 +12,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mongo:
-        image: mongo:4.2
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --quiet --eval 'db.runCommand({ping: 1})'"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -37,8 +26,7 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
+          pip install pytest pymongo pytz
 
       - name: Wait for MongoDB to be ready
         run: |
