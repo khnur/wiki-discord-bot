@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.1
@@ -41,7 +41,7 @@ services:
     image: nurzhankhn/wiki-discord-bot:latest
     environment:
       KAFKA_BROKER: 'PLAINTEXT://kafka:29092'
-      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN:MTMzNjAwMTE0MTMwNDk4MzY4Mw.GiztLT.ixuzybWaRKpLTsOSYqFOCnFRCg5ivgiHvVATjU}
     depends_on:
       - kafka
       - zookeeper
