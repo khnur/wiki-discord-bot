@@ -1,16 +1,12 @@
-from pymongo.collection import Collection
 from pymongo.results import UpdateResult
 
 import mongo_client
 import util
 from mongo_client import Data
 
-default_language_collection: Collection = mongo_client.get_default_language_collection()
-daily_stats_collection: Collection = mongo_client.get_daily_stats_collection()
-recent_events_collection: Collection = mongo_client.get_recent_events_collection()
-
 
 def update_language(key: int, language: str) -> int:
+    default_language_collection = mongo_client.get_default_language_collection()
     result: UpdateResult = default_language_collection.update_one(
         {"key": key},
         {"$set": {
@@ -23,11 +19,13 @@ def update_language(key: int, language: str) -> int:
 
 
 def get_language_by_key(key: int) -> str:
+    default_language_collection = mongo_client.get_default_language_collection()
     data: Data = default_language_collection.find_one({'key': key})
     return data['language'] if data else 'en'
 
 
 def increment_daily_stats(language: str, date: str) -> int:
+    daily_stats_collection = mongo_client.get_daily_stats_collection()
     data: Data = daily_stats_collection.find_one({
         "language": language,
         "date": date
@@ -51,6 +49,7 @@ def increment_daily_stats(language: str, date: str) -> int:
 
 
 def get_daily_stats(language: str, date: str) -> int:
+    daily_stats_collection = mongo_client.get_daily_stats_collection()
     data: Data = daily_stats_collection.find_one({
         "language": language,
         "date": date
@@ -59,6 +58,7 @@ def get_daily_stats(language: str, date: str) -> int:
 
 
 def append_event(language: str, event: dict):
+    recent_events_collection = mongo_client.get_recent_events_collection()
     event['language'] = language
     recent_events_collection.insert_one({
         'language': language,
@@ -76,5 +76,6 @@ def append_event(language: str, event: dict):
 
 
 def get_events(language: str) -> list:
+    recent_events_collection = mongo_client.get_recent_events_collection()
     data_list = recent_events_collection.find({"language": language})
     return list(data_list) if data_list else []
