@@ -14,11 +14,11 @@ jobs:
 
     services:
       mongo:
-        image: mongo:4.4
+        image: mongo:4.2
         ports:
           - 27017:27017
         options: >-
-          --health-cmd "mongosh --eval 'db.runCommand(\"ping\").ok'" 
+          --health-cmd "mongosh --quiet --eval 'db.runCommand({ping: 1})'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -42,14 +42,15 @@ jobs:
 
       - name: Wait for MongoDB to be ready
         run: |
-          for i in {1..10}; do
-            if mongosh --host localhost --eval "db.runCommand('ping').ok"; then
+          for i in {1..20}; do
+            if mongosh --quiet --eval "db.runCommand({ping: 1})"; then
               echo "MongoDB is ready!"
-              break
+              exit 0
             fi
             echo "Waiting for MongoDB..."
             sleep 5
           done
+          exit 1
 
       - name: Run tests with pytest
         run: |
