@@ -38,7 +38,7 @@ services:
 
   bot:
     container_name: bot
-    image: nurzhankhn/wiki-bot:latest
+    image: nurzhankhn/wiki-discord-bot:latest
     environment:
       KAFKA_BROKER: 'PLAINTEXT://kafka:29092'
     depends_on:
