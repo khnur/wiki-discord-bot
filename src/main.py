@@ -1,3 +1,4 @@
+import os
 import threading
 from datetime import datetime
 
@@ -9,6 +10,7 @@ import service
 import util
 from streaming import producer, consumer
 
+DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
 lock: threading.Lock = threading.Lock()
@@ -109,4 +111,4 @@ async def stats(ctx: Context, date: str = None):
         await ctx.send(f"On {date}, there were **{count}** changes for language `{language}`.")
 
 
-bot.run("MTMzNjAwMTE0MTMwNDk4MzY4Mw.GiztLT.ixuzybWaRKpLTsOSYqFOCnFRCg5ivgiHvVATjU")
+bot.run(DISCORD_BOT_TOKEN)
