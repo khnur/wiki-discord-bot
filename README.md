@@ -30,7 +30,7 @@ The **Wikipedia Discord Bot** is a real-time bot that connects to the Wikipedia 
 
 2. **Insert Discord Bot Token:**
 
-   In `.env` file in the project root update Discord bot token or leave it as it is with the test token:
+   In `.env` file in the project root insert Discord bot token:
 
    ```bash
    DISCORD_BOT_TOKEN=your_discord_bot_token_here
@@ -49,10 +49,20 @@ The **Wikipedia Discord Bot** is a real-time bot that connects to the Wikipedia 
 
 4. **Wait for Services to Initialize:** This will pull necessary images and set up Kafka, MongoDB, and the Discord bot.
 
+5. **To Stop the Application:**
+
+   ```bash
+   docker compose down
+   ```
+
 ### Accessing Services Locally
 
 - **Kafka UI:** [http://localhost](http://localhost)
 - **Mongo Express:** [http://localhost/mongo-express](http://localhost/mongo-express)
+
+**Mongo Express Credentials:**
+- **Username:** `abc`
+- **Password:** `pass`
 
 ## Deployment on Azure
 

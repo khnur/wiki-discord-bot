@@ -33,6 +33,8 @@ services:
     image: provectuslabs/kafka-ui:latest
     environment:
       DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: wiki-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       - kafka
 
