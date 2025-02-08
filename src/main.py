@@ -10,7 +10,10 @@ import service
 import util
 from streaming import producer, consumer
 
-DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
+DISCORD_BOT_TOKEN: str = os.environ.get(
+    "DISCORD_BOT_TOKEN",
+    "MTMzNjAwMTE0MTMwNDk4MzY4Mw.GiztLT.ixuzybWaRKpLTsOSYqFOCnFRCg5ivgiHvVATjU"
+)
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
 lock: threading.Lock = threading.Lock()
