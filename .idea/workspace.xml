@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b76ae19-a02f-4609-8aff-63d5645aa95e" name="Changes" comment="fixed bug in docker-compose.yml">
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    <list default="true" id="5b76ae19-a02f-4609-8aff-63d5645aa95e" name="Changes" comment="removed Wait for MongoDB to be ready in actions ci">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/docker-publish.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,40 +47,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_service.test_db1.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_service.test_update_language.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.util.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/nkozhamuratov/PycharmProjects/wiki-discord-bot/tests&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.Dockerfile.executor": "Run",
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.executor": "Coverage",
+    "Python tests.Python tests for test_service.TestService.test_append_event.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.test_get_daily_stats.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.test_get_events.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.test_get_language_by_key.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.test_increment_daily_stats.executor": "Run",
+    "Python tests.Python tests for test_service.TestService.test_update_language.executor": "Run",
+    "Python tests.Python tests for test_service.test_db1.executor": "Run",
+    "Python tests.Python tests for test_service.test_update_language.executor": "Run",
+    "Python tests.Python tests in test_service.py.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.util.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/nkozhamuratov/PycharmProjects/wiki-discord-bot/tests",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for test_service.test_update_language">
+  <component name="RunManager" selected="Docker.docker-compose.yml: Compose Deployment">
     <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
           <option name="imageTag" value="nurzhankhn/wiki-discord-bot" />
           <option name="buildOnly" value="true" />
-          <option name="containerName" value="" />
           <option name="sourceFilePath" value="Dockerfile" />
         </settings>
       </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
@@ -88,7 +101,15 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for test_service.test_update_language" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_service.TestService" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="wiki-discord-bot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,14 +121,49 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_service.test_update_language&quot;" />
+      <option name="_new_target" value="&quot;test_service.TestService&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_service.TestService.test_get_events" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="wiki-discord-bot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_service.TestService.test_get_events&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_service.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="wiki-discord-bot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/test_service.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for test_service.test_update_language" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+        <item itemvalue="Python tests.Python tests for test_service.TestService.test_get_events" />
+        <item itemvalue="Python tests.Python tests in test_service.py" />
         <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="Python tests.Python tests for test_service.TestService" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +185,7 @@
       <updated>1738998932184</updated>
       <workItem from="1738998933203" duration="9932000" />
       <workItem from="1739035441010" duration="27000" />
+      <workItem from="1739035491408" duration="7728000" />
     </task>
     <task id="LOCAL-00001" summary="configured .dea">
       <option name="closed" value="true" />
@@ -170,7 +227,39 @@
       <option name="project" value="LOCAL" />
       <updated>1739006540214</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added unit tests for service.py">
+      <option name="closed" value="true" />
+      <created>1739041260900</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739041260901</updated>
+    </task>
+    <task id="LOCAL-00007" summary="decremented mongo version in actions ci">
+      <option name="closed" value="true" />
+      <created>1739042226156</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1739042226156</updated>
+    </task>
+    <task id="LOCAL-00008" summary="removed mongo in actions ci">
+      <option name="closed" value="true" />
+      <created>1739042634189</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1739042634190</updated>
+    </task>
+    <task id="LOCAL-00009" summary="removed Wait for MongoDB to be ready in actions ci">
+      <option name="closed" value="true" />
+      <created>1739042757002</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1739042757002</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,11 +270,15 @@
     <MESSAGE value="configured .idea" />
     <MESSAGE value="added CI" />
     <MESSAGE value="fixed bug in docker-compose.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug in docker-compose.yml" />
+    <MESSAGE value="added unit tests for service.py" />
+    <MESSAGE value="decremented mongo version in actions ci" />
+    <MESSAGE value="removed mongo in actions ci" />
+    <MESSAGE value="removed Wait for MongoDB to be ready in actions ci" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed Wait for MongoDB to be ready in actions ci" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/wiki_discord_bot$main.coverage" NAME="main Coverage Results" MODIFIED="1738998953661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/wiki_discord_bot$util.coverage" NAME="util Coverage Results" MODIFIED="1738998963374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/wiki_discord_bot$.coverage" NAME=" Coverage Results" MODIFIED="1739004907585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/wiki_discord_bot$.coverage" NAME=" Coverage Results" MODIFIED="1739040733860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
 </project>

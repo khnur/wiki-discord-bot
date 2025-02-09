@@ -10,7 +10,6 @@ import service
 import util
 from streaming import producer, consumer
 
-DISCORD_BOT_TOKEN: str = os.getenv("DISCORD_BOT_TOKEN")
 WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
 
 lock: threading.Lock = threading.Lock()
@@ -111,4 +110,8 @@ async def stats(ctx: Context, date: str = None):
         await ctx.send(f"On {date}, there were **{count}** changes for language `{language}`.")
 
 
-bot.run(DISCORD_BOT_TOKEN)
+if __name__ == "__main__":
+    DISCORD_BOT_TOKEN: str = os.getenv("DISCORD_BOT_TOKEN")
+    if not DISCORD_BOT_TOKEN:
+        raise ValueError("DISCORD_BOT_TOKEN environment variable is not set.")
+    bot.run(DISCORD_BOT_TOKEN)

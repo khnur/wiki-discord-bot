@@ -34,16 +34,11 @@ jobs:
           pytest --no-header --no-summary -q
 
       - name: Send Telegram notification (Test Result)
-        if: always()
+        if: failure()
         run: |
-          STATUS="✅ Tests Passed!"
-          if [ "${{ env.TESTS_FAILED }}" = "true" ]; then
-            STATUS="❌ Tests Failed!"
-          fi
-
           curl -s -X POST https://api.telegram.org/bot${{ secrets.ALERT_TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=686700338 \
-          -d text="${STATUS} - Workflow: ${{ github.workflow }} - Commit: ${{ github.sha }}"
+          -d text="❌ Tests Failed - Workflow: ${{ github.workflow }} - Commit: ${{ github.sha }}"
 
 
   build:
