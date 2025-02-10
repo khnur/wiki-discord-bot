@@ -1,13 +1,10 @@
 import json
-import os
 import time
 
 import requests
 from confluent_kafka import Producer
 
-KAFKA_BROKER = os.environ.get("KAFKA_BROKER", "localhost:9092")
-TOPIC: str = "wikipedia"
-WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
+from core.config import *
 
 
 def delivery_report(err, msg):
@@ -36,4 +33,4 @@ def produce():
             producer.flush()
         except json.JSONDecodeError as e:
             print(f'Error: {e}')
-        time.sleep(5)
+        time.sleep(INTERVAL_SECONDS)

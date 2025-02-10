@@ -4,7 +4,7 @@ from src import service
 
 
 class TestService(unittest.TestCase):
-    @patch('mongo_client.get_default_language_collection')
+    @patch('core.mongo_client.get_default_language_collection')
     def test_update_language(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection
@@ -14,7 +14,7 @@ class TestService(unittest.TestCase):
         self.assertEqual(result, 1)
         mock_collection.update_one.assert_called_once()
 
-    @patch('mongo_client.get_default_language_collection')
+    @patch('core.mongo_client.get_default_language_collection')
     def test_get_language_by_key(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection
@@ -27,7 +27,7 @@ class TestService(unittest.TestCase):
         language = service.get_language_by_key(2)
         self.assertEqual(language, 'en')
 
-    @patch('mongo_client.get_daily_stats_collection')
+    @patch('core.mongo_client.get_daily_stats_collection')
     def test_increment_daily_stats(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection
@@ -41,7 +41,7 @@ class TestService(unittest.TestCase):
         result = service.increment_daily_stats('en', '2024-02-09')
         self.assertEqual(result, 1)
 
-    @patch('mongo_client.get_daily_stats_collection')
+    @patch('core.mongo_client.get_daily_stats_collection')
     def test_get_daily_stats(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection
@@ -54,7 +54,7 @@ class TestService(unittest.TestCase):
         amount = service.get_daily_stats('en', '2024-02-09')
         self.assertEqual(amount, 0)
 
-    @patch('mongo_client.get_recent_events_collection')
+    @patch('core.mongo_client.get_recent_events_collection')
     def test_append_event(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection
@@ -73,7 +73,7 @@ class TestService(unittest.TestCase):
         mock_collection.delete_one.return_value = None
         service.append_event('en', event)
 
-    @patch('mongo_client.get_recent_events_collection')
+    @patch('core.mongo_client.get_recent_events_collection')
     def test_get_events(self, mock_get_collection):
         mock_collection = MagicMock()
         mock_get_collection.return_value = mock_collection

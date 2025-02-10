@@ -1,12 +1,10 @@
+import json
 import threading
 from typing import Callable
 
 from confluent_kafka import Consumer
-import json
-import os
 
-KAFKA_BROKER = os.environ.get("KAFKA_BROKER", "localhost:9092")
-TOPIC = "wikipedia"
+from core.config import *
 
 
 def consume(func: Callable[[dict[str, str | int | float]], None], lock: threading.Lock):

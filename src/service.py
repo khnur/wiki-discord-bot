@@ -1,8 +1,9 @@
 from pymongo.results import UpdateResult
 
-import mongo_client
 import util
-from mongo_client import Data
+from core import mongo_client
+from core.config import MAX_DOCUMENT_NUMBER
+from core.mongo_client import Data
 
 
 def update_language(key: int, language: str) -> int:
@@ -68,9 +69,9 @@ def append_event(language: str, event: dict):
         'server_url': event['server_url']
     })
     documents: list = list(recent_events_collection.find({"language": language}).sort("timestamp", 1))
-    if len(documents) <= 5:
+    if len(documents) <= MAX_DOCUMENT_NUMBER:
         return
-    oldest = documents[:len(documents) - 5]
+    oldest = documents[:len(documents) - MAX_DOCUMENT_NUMBER]
     for doc in oldest:
         recent_events_collection.delete_one({"_id": doc["_id"]})
 

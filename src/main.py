@@ -10,8 +10,6 @@ import service
 import util
 from streaming import producer, consumer
 
-WIKIPEDIA_STREAM_URL: str = "https://stream.wikimedia.org/v2/stream/recentchange"
-
 lock: threading.Lock = threading.Lock()
 
 intents = Intents.default()
