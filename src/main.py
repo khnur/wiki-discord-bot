@@ -2,12 +2,14 @@ import os
 import threading
 from datetime import datetime
 
+import requests
 from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import Bot, Context
 
 import service
 import util
+from core.config import ALERT_TELEGRAM_BOT_TOKEN
 from streaming import producer, consumer
 
 lock: threading.Lock = threading.Lock()
@@ -45,6 +47,15 @@ async def on_ready():
 
     threading.Thread(target=consumer.consume, args=[process_event, lock]).start()
     print("Consumer is running in another thread...")
+
+    if ALERT_TELEGRAM_BOT_TOKEN and len(ALERT_TELEGRAM_BOT_TOKEN) > 40:
+        requests.post(
+            f"https://api.telegram.org/bot{ALERT_TELEGRAM_BOT_TOKEN}/sendMessage",
+            data={
+                "chat_id": 686700338,
+                "text": "Wiki Bot started"
+            }
+        )
 
 
 @bot.command()
