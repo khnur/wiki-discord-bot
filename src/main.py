@@ -2,14 +2,13 @@ import os
 import threading
 from datetime import datetime
 
-import requests
 from discord import Intents
 from discord.ext import commands
 from discord.ext.commands import Bot, Context
 
 import service
 import util
-from core.config import ALERT_TELEGRAM_BOT_TOKEN
+from core.exception_handler import exception_handler, exception_handler_async
 from streaming import producer, consumer
 
 lock: threading.Lock = threading.Lock()
@@ -20,6 +19,7 @@ intents.message_content = True
 bot: Bot = commands.Bot(command_prefix="!", intents=intents)
 
 
+@exception_handler
 def process_event(event: dict[str, str | int | float]):
     print(f"Processing event {event}")
     wiki: str = event.get("wiki", "")
@@ -39,6 +39,7 @@ def process_event(event: dict[str, str | int | float]):
 
 
 @bot.event
+@exception_handler_async
 async def on_ready():
     print(f'Logged in as {bot.user}')
 
@@ -48,14 +49,7 @@ async def on_ready():
     threading.Thread(target=consumer.consume, args=[process_event, lock]).start()
     print("Consumer is running in another thread...")
 
-    if ALERT_TELEGRAM_BOT_TOKEN and len(ALERT_TELEGRAM_BOT_TOKEN) > 40:
-        requests.post(
-            f"https://api.telegram.org/bot{ALERT_TELEGRAM_BOT_TOKEN}/sendMessage",
-            data={
-                "chat_id": 686700338,
-                "text": "Wiki Bot started"
-            }
-        )
+    util.send_message_to_telebot("Wiki Bot started")
 
 
 @bot.command()
@@ -64,6 +58,7 @@ async def hello(ctx: Context):
 
 
 @bot.command(name="setLang")
+@exception_handler_async
 async def set_lang(ctx: Context, lang_code: str = None):
     with lock:
         if not lang_code or len(lang_code) != 2:
@@ -76,6 +71,7 @@ async def set_lang(ctx: Context, lang_code: str = None):
 
 
 @bot.command(name="recent")
+@exception_handler_async
 async def recent(ctx: Context, lang_code: str = None):
     with lock:
         key: int = ctx.guild.id if ctx.guild else ctx.author.id
@@ -103,6 +99,7 @@ async def recent(ctx: Context, lang_code: str = None):
 
 
 @bot.command(name="stats")
+@exception_handler_async
 async def stats(ctx: Context, date: str = None):
     with lock:
         try:

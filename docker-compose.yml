@@ -38,8 +38,6 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       - kafka
-    networks:
-      - mynetwork
 
   mongo:
     image: mongo:latest
@@ -49,8 +47,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: pass
     volumes:
       - mongo-data:/data/db
-    networks:
-      - mynetwork
 
   mongo-express:
     image: mongo-express:latest
@@ -64,8 +60,6 @@ services:
       ME_CONFIG_SITE_BASEURL: /mongo-express
     depends_on:
       - mongo
-    networks:
-      - mynetwork
 
   bot:
     container_name: bot
@@ -89,13 +83,7 @@ services:
     depends_on:
       - mongo-express
       - kafka-ui
-    networks:
-      - mynetwork
 
 volumes:
   mongo-data:
     driver: local
-
-networks:
-  mynetwork:
-    driver: bridge
