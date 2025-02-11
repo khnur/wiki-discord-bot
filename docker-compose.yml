@@ -68,6 +68,7 @@ services:
       KAFKA_BROKER: 'PLAINTEXT://kafka:29092'
       DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
       ALERT_TELEGRAM_BOT_TOKEN: ${ALERT_TELEGRAM_BOT_TOKEN}
+      MONGO_CLIENT: ${MONGO_CLIENT}
     depends_on:
       mongo:
         condition: service_started

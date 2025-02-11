@@ -10,7 +10,7 @@ def exception_handler(func):
                 util.send_message_to_telebot(f'Error occurred: {str(e)}')
             except Exception as ex:
                 print(ex)
-            print(f"Exception in {func.__name__}: {e}")
+            raise e
 
     return wrapper
 

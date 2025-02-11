@@ -4,9 +4,9 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 
-mongoClient: MongoClient = MongoClient(
-    'mongodb://abc:pass@mongo:27017?retryWrites=true&w=majority&authSource=admin'
-)
+from core.config import MONGO_CLIENT
+
+mongoClient: MongoClient = MongoClient(MONGO_CLIENT)
 database: Database = mongoClient['wiki']
 
 Data = dict[str, Any]
