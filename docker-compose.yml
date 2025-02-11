@@ -38,6 +38,8 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:29092
     depends_on:
       - kafka
+    networks:
+      - mynetwork
 
   mongo:
     image: mongo:latest
@@ -47,12 +49,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: pass
     volumes:
       - mongo-data:/data/db
-    healthcheck:
-      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 5s
+    networks:
+      - mynetwork
 
   mongo-express:
     image: mongo-express:latest
@@ -66,6 +64,8 @@ services:
       ME_CONFIG_SITE_BASEURL: /mongo-express
     depends_on:
       - mongo
+    networks:
+      - mynetwork
 
   bot:
     container_name: bot
@@ -76,7 +76,7 @@ services:
       ALERT_TELEGRAM_BOT_TOKEN: ${ALERT_TELEGRAM_BOT_TOKEN}
     depends_on:
       mongo:
-        condition: service_healthy
+        condition: service_started
       kafka:
         condition: service_started
       zookeeper:
@@ -89,8 +89,13 @@ services:
     depends_on:
       - mongo-express
       - kafka-ui
-      - bot
+    networks:
+      - mynetwork
 
 volumes:
   mongo-data:
     driver: local
+
+networks:
+  mynetwork:
+    driver: bridge
