@@ -48,19 +48,6 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  mongo-express:
-    image: mongo-express:latest
-    restart: always
-    environment:
-      ME_CONFIG_MONGODB_AUTH_USERNAME: abc
-      ME_CONFIG_MONGODB_AUTH_PASSWORD: pass
-      ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_BASICAUTH_USERNAME: abc
-      ME_CONFIG_BASICAUTH_PASSWORD: pass
-      ME_CONFIG_SITE_BASEURL: /mongo-express
-    depends_on:
-      - mongo
-
   bot:
     container_name: bot
     image: nurzhankhn/wiki-discord-bot:latest
@@ -76,14 +63,6 @@ services:
         condition: service_started
       zookeeper:
         condition: service_started
-
-  nginx:
-    image: nurzhankhn/wiki-nginx:latest
-    ports:
-      - "80:80"
-    depends_on:
-      - mongo-express
-      - kafka-ui
 
 volumes:
   mongo-data:
